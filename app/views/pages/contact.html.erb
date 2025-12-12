@@ -1,0 +1,62 @@
+<div class="bg-nordik-bg min-h-screen py-12 px-6 flex items-center">
+  <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+
+    <div class="flex flex-col justify-center">
+      <h1 class="text-4xl md:text-5xl font-sans font-light tracking-[0.1em] text-nordik-primary uppercase mb-6">
+        Get in Touch
+      </h1>
+      <div class="h-0.5 w-20 bg-nordik-accent mb-8"></div>
+
+      <p class="text-nordik-secondary font-light mb-12 text-lg leading-relaxed">
+        Interested in working together? Fill out the form below with some info about your project and we will get back to you as soon as possible.
+      </p>
+
+      <%= form_with url: contact_submissions_path, method: :post, scope: :contact, local: true, class: "space-y-8" do |form| %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="group">
+            <%= form.label :name, "Name", class: "block text-xs font-bold text-nordik-secondary uppercase tracking-widest mb-2 group-focus-within:text-nordik-accent transition-colors" %>
+            <%= form.text_field :name, class: "w-full bg-transparent border-b border-gray-300 py-2 text-nordik-primary focus:outline-none focus:border-nordik-accent transition-colors duration-300 placeholder-gray-300", placeholder: "Your name" %>
+          </div>
+          <div class="group">
+            <%= form.label :email, "Email", class: "block text-xs font-bold text-nordik-secondary uppercase tracking-widest mb-2 group-focus-within:text-nordik-accent transition-colors" %>
+            <%= form.email_field :email, class: "w-full bg-transparent border-b border-gray-300 py-2 text-nordik-primary focus:outline-none focus:border-nordik-accent transition-colors duration-300 placeholder-gray-300", placeholder: "email@example.com" %>
+          </div>
+        </div>
+
+        <div class="group">
+          <%= form.label :subject, "Subject", class: "block text-xs font-bold text-nordik-secondary uppercase tracking-widest mb-2 group-focus-within:text-nordik-accent transition-colors" %>
+          <%= form.select :subject, ['New Project Inquiry', 'Press & Media', 'Careers', 'Other'], {prompt: 'Select a subject...'}, class: "w-full bg-transparent border-b border-gray-300 py-2 text-nordik-primary focus:outline-none focus:border-nordik-accent transition-colors duration-300" %>
+        </div>
+
+        <div class="group">
+          <%= form.label :message, "Message", class: "block text-xs font-bold text-nordik-secondary uppercase tracking-widest mb-2 group-focus-within:text-nordik-accent transition-colors" %>
+          <%= form.text_area :message, rows: 4, class: "w-full bg-transparent border-b border-gray-300 py-2 text-nordik-primary focus:outline-none focus:border-nordik-accent transition-colors duration-300 resize-none placeholder-gray-300", placeholder: "Tell us about your dream project..." %>
+        </div>
+
+        <%= form.submit "Send Message", class: "cursor-pointer mt-6 px-12 py-4 bg-nordik-accent text-white text-xs font-bold tracking-[0.2em] uppercase rounded-full hover:bg-nordik-primary transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1 border border-transparent" %>
+      <% end %>
+
+      <div class="mt-16 grid grid-cols-2 gap-8 text-xs tracking-widest uppercase text-nordik-secondary">
+        <div>
+          <span class="block font-bold text-nordik-primary mb-1">Office</span>
+          UK
+        </div>
+        <div>
+          <span class="block font-bold text-nordik-primary mb-1">Email</span>
+          archwayt2025@gmail.com
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hidden lg:block relative h-[80vh] rounded-[2rem] overflow-hidden shadow-2xl">
+      <img
+        src="https://images.unsplash.com/photo-1507652319199-ad43534280ad?q=80&w=2670&auto=format&fit=crop"
+        alt="Architect Portrait"
+        class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out scale-105 hover:scale-100"
+      >
+      <div class="absolute inset-0 bg-nordik-primary/10 mix-blend-multiply"></div>
+    </div>
+
+  </div>
+</div>

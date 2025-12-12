@@ -1,0 +1,14 @@
+<div style="font-family: sans-serif; background-color: #f5f2e9; padding: 20px; border-radius: 8px;">
+  <h2 style="color: #3d3d3d; border-bottom: 2px solid #b8a996; padding-bottom: 10px;">
+    Novo Formulário Recebido
+  </h2>
+
+  <p><strong>De:</strong> <%= @params[:name] %></p>
+  <p><strong>Email:</strong> <%= @params[:email] %></p>
+  <p><strong>Assunto:</strong> <%= @params[:subject] %></p>
+  
+  <p style="margin-top: 20px;"><strong>Mensagem:</strong></p>
+  <div style="border: 1px solid #ddd; padding: 15px; background-color: #ffffff; white-space: pre-wrap;">
+    <%= @params[:message] %>
+  </div>
+</div>

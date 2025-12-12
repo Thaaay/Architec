@@ -1,0 +1,140 @@
+<% if @project.tour_360.attached? %>
+  <% content_for :head do %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <% end %>
+<% end %>
+
+
+<div class="bg-nordik-bg min-h-screen flex flex-col">
+
+  <div class="absolute top-6 right-6 z-20">
+    <%= link_to projects_path, class: "group flex items-center justify-center w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full shadow-sm hover:bg-nordik-accent hover:text-white transition-all duration-300" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    <% end %>
+  </div>
+
+  <div class="flex-grow flex flex-col items-center justify-center p-4 md:p-10 max-w-7xl mx-auto w-full">
+    
+    <div class="text-center mb-8 mt-12">
+        <h1 class="text-4xl font-sans tracking-[0.2em] uppercase text-nordik-primary">
+            <%= @project.title %>
+        </h1>
+        <p class="text-sm text-nordik-secondary mt-2 max-w-2xl mx-auto"><%= @project.description %></p>
+    </div>
+    
+    <% if @project.tour_360.attached? %>
+      
+      <div class="relative w-full aspect-video md:aspect-[16/9] lg:h-[70vh] bg-nordik-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-8 border-4 border-white">
+        
+        <div id="panorama" class="w-full h-full bg-gray-200"></div>
+        
+        <div class="absolute bottom-4 left-4 right-4 p-4 bg-black/60 text-white rounded-lg text-xs tracking-widest flex justify-between items-center">
+             <span>INTERACTIVE 360 TOUR</span>
+             <span class="text-nordik-accent uppercase font-bold">Clique e arraste para explorar</span>
+        </div>
+      </div>
+      
+    <% else %>
+      
+      <div class="relative w-full aspect-video md:aspect-[16/9] lg:h-[70vh] bg-nordik-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-8">
+        <% if @project.image.attached? %>
+          <%= image_tag @project.image, id: "main-image", class: "w-full h-full object-cover transition-all duration-500" %>
+        <% else %>
+          <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400">SEM CAPA</div>
+        <% end %>
+
+        <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent">
+          <h1 class="text-white text-3xl font-sans tracking-[0.2em] uppercase">
+            <%= @project.title %>
+          </h1>
+        </div>
+      </div>
+
+    <% end %>
+
+    <div class="w-full max-w-4xl">
+      <div class="flex space-x-4 overflow-x-auto pb-4 snap-x justify-center scrollbar-hide">
+        
+        <% unless @project.tour_360.attached? %>
+          <% if @project.image.attached? %>
+            <button onclick="changeImage(this)" class="shrink-0 snap-center focus:outline-none group">
+              <div class="w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 border-nordik-accent transition-all duration-300 opacity-100 ring-offset-2 focus:ring-2 ring-nordik-accent">
+                <%= image_tag @project.image, class: "w-full h-full object-cover" %>
+              </div>
+            </button>
+          <% end %>
+        <% end %>
+
+        <% if @project.photos.attached? %>
+          <% @project.photos.each do |photo| %>
+            <button onclick="changeImage(this)" class="shrink-0 snap-center focus:outline-none group">
+              <div class="w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 border-transparent hover:border-nordik-accent transition-all duration-300 opacity-70 hover:opacity-100 ring-offset-2 focus:ring-2 ring-nordik-accent">
+                <%= image_tag photo, class: "w-full h-full object-cover" %>
+              </div>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    // ----------------------------------------------------
+    // Lógica para o Visualizador 360º (Pannellum)
+    // ----------------------------------------------------
+    <% if @project.tour_360.attached? %>
+      if (document.getElementById('panorama')) {
+          // Obtém a URL do arquivo 360º anexado
+          const tourUrl = "<%= url_for(@project.tour_360) %>";
+          
+          pannellum.viewer('panorama', {
+              "type": "equirectangular",
+              "panorama": tourUrl,
+              "autoLoad": true,
+              "autoRotate": -2,
+              "compass": false,
+              "showControls": true
+          });
+      }
+      
+    // ----------------------------------------------------
+    // Lógica para o Carrossel (Apenas fotos normais)
+    // ----------------------------------------------------
+    <% else %>
+      // Função simples de troca de imagem (mantida da implementação anterior)
+      window.changeImage = function(element) {
+        const thumbnail = element.querySelector('img');
+        const mainImage = document.getElementById('main-image');
+        
+        if (thumbnail && mainImage) {
+          mainImage.style.opacity = '0.8';
+          setTimeout(() => {
+            mainImage.src = thumbnail.src;
+            mainImage.style.opacity = '1';
+            
+            document.querySelectorAll('.w-full.max-w-4xl button div').forEach(div => {
+              div.classList.remove('border-nordik-accent', 'opacity-100');
+              div.classList.add('border-transparent', 'opacity-70');
+            });
+            
+            const activeDiv = element.querySelector('div');
+            activeDiv.classList.remove('border-transparent', 'opacity-70');
+            activeDiv.classList.add('border-nordik-accent', 'opacity-100');
+          }, 200);
+        }
+      }
+    <% end %>
+  });
+</script>
+
+<style>
+  /* Estilos para o Pannellum (Se estiver ativo) */
+  .pnlm-container {
+    background-color: #F5F2E9; /* Cor de fundo do site */
+  }
+</style>

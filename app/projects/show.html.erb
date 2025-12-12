@@ -1,0 +1,122 @@
+<div class="bg-nordik-bg min-h-screen">
+
+  <div class="relative h-[70vh] w-full bg-nordik-secondary overflow-hidden">
+    <% if @project.image.attached? %>
+      <%= image_tag @project.image, class: "absolute inset-0 w-full h-full object-cover" %>
+    <% else %>
+      <div class="absolute inset-0 bg-nordik-accent/20 flex items-center justify-center">
+        <span class="text-nordik-accent tracking-[0.5em] text-xs uppercase">No Image Available</span>
+      </div>
+    <% end %>
+    
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
+
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 mt-10">
+      <span class="text-white/80 text-xs font-bold tracking-[0.3em] uppercase mb-4 border-b border-white/30 pb-2">
+        Project Detail
+      </span>
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-sans font-light tracking-[0.1em] text-white uppercase drop-shadow-lg">
+        <%= @project.title %>
+      </h1>
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 -mt-24 mb-20">
+    <div class="bg-nordik-white p-10 md:p-16 rounded-t-3xl shadow-xl border-t border-white/50">
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        
+        <div class="md:col-span-1 space-y-8 border-r border-gray-100 md:pr-8">
+          <div>
+            <h3 class="text-xs font-bold text-nordik-accent uppercase tracking-widest mb-2">Client</h3>
+            <p class="text-nordik-primary font-serif italic">Private Residence</p>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-nordik-accent uppercase tracking-widest mb-2">Location</h3>
+            <p class="text-nordik-primary font-serif italic">Copenhagen, DK</p>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-nordik-accent uppercase tracking-widest mb-2">Year</h3>
+            <p class="text-nordik-primary font-serif italic">2024</p>
+          </div>
+          
+          <div class="pt-8">
+            <%= link_to projects_path, class: "inline-flex items-center text-[10px] font-bold tracking-widest uppercase text-nordik-secondary hover:text-nordik-accent transition group" do %>
+              <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span> Back to Projects
+            <% end %>
+          </div>
+        </div>
+
+        <div class="md:col-span-2">
+          <h2 class="text-2xl font-sans tracking-[0.1em] text-nordik-primary uppercase mb-6">
+            The Concept
+          </h2>
+          <div class="prose prose-stone text-nordik-secondary leading-relaxed font-light text-lg">
+            <%= simple_format(@project.description) %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 pb-24">
+    <div class="flex items-center justify-between mb-10 border-b border-nordik-accent/20 pb-4">
+      <h3 class="text-xl font-sans tracking-[0.2em] text-nordik-primary uppercase">
+        Visual Tour
+      </h3>
+      <span class="text-xs text-nordik-secondary tracking-widest">06 PHOTOS</span>
+    </div>
+    
+<div class="flex-grow flex flex-col items-center justify-center p-4 md:p-10 max-w-7xl mx-auto w-full">
+    
+    <div class="relative w-full aspect-video md:aspect-[16/9] lg:h-[70vh] bg-nordik-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-8">
+      <% if @project.image.attached? %>
+        <%= image_tag @project.image, id: "main-image", class: "w-full h-full object-cover transition-all duration-500" %>
+      <% else %>
+        <div class="w-full h-full bg-gray-200 flex items-center justify-center">SEM CAPA</div>
+      <% end %>
+      
+      <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
+        <h1 class="text-white text-3xl font-sans tracking-[0.2em] uppercase"><%= @project.title %></h1>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl">
+      <div class="flex space-x-4 overflow-x-auto pb-4 snap-x justify-center scrollbar-hide">
+        
+        <% if @project.image.attached? %>
+          <button onclick="changeImage(this)" class="shrink-0 snap-center focus:outline-none group">
+            <div class="w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 border-nordik-accent transition-all duration-300 opacity-100 ring-offset-2 focus:ring-2 ring-nordik-accent">
+              <%= image_tag @project.image, class: "w-full h-full object-cover" %>
+            </div>
+          </button>
+        <% end %>
+
+        <% if @project.photos.attached? %>
+          <% @project.photos.each do |photo| %>
+            <button onclick="changeImage(this)" class="shrink-0 snap-center focus:outline-none group">
+              <div class="w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 border-transparent hover:border-nordik-accent transition-all duration-300 opacity-70 hover:opacity-100 ring-offset-2 focus:ring-2 ring-nordik-accent">
+                <%= image_tag photo, class: "w-full h-full object-cover" %>
+              </div>
+            </button>
+          <% end %>
+        <% end %>
+
+        <% unless @project.photos.attached? %>
+          <div class="text-xs text-gray-400 italic self-center ml-4">No gallery photos added.</div>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <footer class="text-center py-12 border-t border-nordik-accent/10">
+    <p class="text-[10px] text-nordik-secondary tracking-[0.3em] uppercase">
+      Nordik Arkitekter © 2024
+    </p>
+  </footer>
+
+</div>

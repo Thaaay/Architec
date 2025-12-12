@@ -1,0 +1,46 @@
+<div class="bg-nordik-bg min-h-screen pb-12">
+  
+  <div class="relative w-full mb-12">
+    <div class="overflow-hidden rounded-2xl md:rounded-[2rem] shadow-sm">
+      <img 
+        src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=2565&auto=format&fit=crop" 
+        alt="Nordik winter house" 
+        class="w-full h-[400px] md:h-[600px] object-cover hover:scale-105 transition-transform duration-700 ease-out"
+      >
+    </div>
+  </div>
+
+
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <% @projects.each do |project| %>
+      <%= link_to project_path(project), class: "group cursor-pointer block" do %>
+        
+        <div class="overflow-hidden rounded-lg shadow-sm mb-3 h-48 bg-nordik-bg relative">
+          <% if project.image.attached? %>
+            <img 
+              src="<%= url_for(project.image) %>" 
+              alt="<%= project.title %>" 
+              class="h-full w-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+            >
+          <% else %>
+            <div class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400 text-[10px] uppercase tracking-widest font-bold border border-gray-200">
+              No Image
+            </div>
+          <% end %>
+          
+          <div class="absolute inset-0 bg-nordik-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+        
+        <div class="text-center">
+          <h3 class="text-sm font-bold text-nordik-primary uppercase tracking-widest group-hover:text-nordik-accent transition-colors">
+            <%= project.title %>
+          </h3>
+          <p class="text-xs text-nordik-secondary mt-1 font-light">
+            <%= project.description.truncate(40) %>
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="bg-nordik-bg min-h-screen py-12 px-6">
+  <div class="max-w-5xl mx-auto">
+    
+    <div class="mb-12">
+      <%= link_to admin_path, class: "group inline-flex items-center text-xs font-bold tracking-widest uppercase text-nordik-secondary hover:text-nordik-primary transition mb-4" do %>
+        ← Back to Admin
+      <% end %>
+      <h1 class="text-3xl font-sans tracking-[0.2em] text-nordik-primary uppercase">
+        New Project
+      </h1>
+      <div class="h-0.5 w-12 bg-nordik-accent mt-4"></div>
+    </div>
+
+    <%= render 'form', project: @project %>
+
+  </div>
+</div>

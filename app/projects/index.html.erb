@@ -1,0 +1,91 @@
+<div class="bg-nordik-bg min-h-screen flex flex-col">
+
+  <div class="absolute top-6 right-6 z-20">
+    <%= link_to projects_path, class: "group flex items-center justify-center w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full shadow-sm hover:bg-nordik-accent hover:text-white transition-all duration-300" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    <% end %>
+  </div>
+
+  <div class="flex-grow flex flex-col items-center justify-center p-4 md:p-10 max-w-7xl mx-auto w-full">
+    
+    <div class="relative w-full aspect-video md:aspect-[16/9] lg:h-[70vh] bg-nordik-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-8">
+      
+      <% if @project.image.attached? %>
+        <%= image_tag @project.image, id: "main-image", class: "w-full h-full object-cover transition-all duration-500" %>
+      <% else %>
+        <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400">
+          SEM IMAGEM
+        </div>
+      <% end %>
+
+      <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent">
+        <h1 class="text-white text-3xl font-sans tracking-[0.2em] uppercase">
+          <%= @project.title %>
+        </h1>
+        <p class="text-white/80 text-sm font-light mt-1">
+          <%= @project.description.truncate(100) %>
+        </p>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl">
+      <div class="flex space-x-4 overflow-x-auto pb-4 snap-x justify-center scrollbar-hide">
+        
+        <% 5.times do |i| %>
+          <button onclick="changeImage(this)" class="shrink-0 snap-center focus:outline-none group">
+            <div class="w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 border-transparent hover:border-nordik-accent transition-all duration-300 opacity-70 hover:opacity-100 ring-offset-2 focus:ring-2 ring-nordik-accent">
+              <% if @project.image.attached? %>
+                <%= image_tag @project.image, class: "w-full h-full object-cover" %>
+              <% else %>
+                <div class="w-full h-full bg-gray-300"></div>
+              <% end %>
+            </div>
+          </button>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function changeImage(element) {
+    // Pega a imagem de dentro do botão clicado
+    const thumbnail = element.querySelector('img');
+    const mainImage = document.getElementById('main-image');
+    
+    if (thumbnail && mainImage) {
+      // Aplica um efeito de fade rápido
+      mainImage.style.opacity = '0.8';
+      
+      setTimeout(() => {
+        // Troca a fonte da imagem principal pela da miniatura
+        mainImage.src = thumbnail.src;
+        mainImage.style.opacity = '1';
+      }, 200);
+      
+      // Remove borda ativa de todos e adiciona no atual
+      document.querySelectorAll('button div').forEach(div => {
+        div.classList.remove('border-nordik-accent', 'opacity-100');
+        div.classList.add('border-transparent', 'opacity-70');
+      });
+      
+      const activeDiv = element.querySelector('div');
+      activeDiv.classList.remove('border-transparent', 'opacity-70');
+      activeDiv.classList.add('border-nordik-accent', 'opacity-100');
+    }
+  }
+</script>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+  }
+  .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+  }
+</style>

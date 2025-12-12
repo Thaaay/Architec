@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Archway</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <%= yield :head %>
+  </head>
+
+  <body class="bg-nordik-bg font-sans text-nordik-primary antialiased flex flex-col min-h-screen">
+
+    <%= render 'shared/navbar' %>
+
+    <div class="max-w-7xl mx-auto w-full">
+
+        <main class="flex-grow">
+            <%= yield %>
+        </main>
+
+    </div>
+    <%= render 'shared/footer' %>
+  </body>
+</html>
