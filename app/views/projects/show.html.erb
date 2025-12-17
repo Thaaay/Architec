@@ -84,12 +84,10 @@
 
 <script>
   document.addEventListener("turbo:load", function() {
-    // ----------------------------------------------------
-    // Lógica para o Visualizador 360º (Pannellum)
-    // ----------------------------------------------------
+
     <% if @project.tour_360.attached? %>
       if (document.getElementById('panorama')) {
-          // Obtém a URL do arquivo 360º anexado
+       
           const tourUrl = "<%= url_for(@project.tour_360) %>";
           
           pannellum.viewer('panorama', {
@@ -102,11 +100,9 @@
           });
       }
       
-    // ----------------------------------------------------
-    // Lógica para o Carrossel (Apenas fotos normais)
-    // ----------------------------------------------------
+  
     <% else %>
-      // Função simples de troca de imagem (mantida da implementação anterior)
+    
       window.changeImage = function(element) {
         const thumbnail = element.querySelector('img');
         const mainImage = document.getElementById('main-image');
@@ -135,6 +131,6 @@
 <style>
   /* Estilos para o Pannellum (Se estiver ativo) */
   .pnlm-container {
-    background-color: #F5F2E9; /* Cor de fundo do site */
+    background-color: #F5F2E9; 
   }
 </style>

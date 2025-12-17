@@ -12,7 +12,7 @@
       </h1>
       <div class="h-0.5 w-12 bg-nordik-accent mx-auto mt-4 mb-4"></div>
       <p class="text-nordik-secondary font-light">
-        Explore nosso espaço criativo em 360º.
+        Explore our creative space in 360º.
       </p>
     </div>
 
@@ -28,7 +28,7 @@
 
     <div class="text-center mt-6">
       <p class="text-xs text-nordik-secondary uppercase tracking-widest">
-        <span class="inline-block border border-nordik-secondary/30 px-2 py-1 rounded mr-2">Mouse</span> Arraste para girar
+        <span class="inline-block border border-nordik-secondary/30 px-2 py-1 rounded mr-2">Mouse</span> Drag to rotate
       </p>
     </div>
 
@@ -37,21 +37,20 @@
 
 <script>
   document.addEventListener("turbo:load", function() {
-    // URL da sua imagem .webp do Planner 5D
-    // IMPORTANTE: Coloque o arquivo na pasta 'public/images/' ou use um link externo
+    
     const imageUrl = "<%= asset_path('studio_360.webp') %>"; 
 
-    // Inicializa o Pannellum
+
     pannellum.viewer('panorama', {
       "type": "equirectangular",
       "panorama": imageUrl,
       "autoLoad": true,
-      "autoRotate": -2, // Gira devagarzinho automaticamente
+      "autoRotate": -2, 
       "compass": false,
       "showControls": true
     });
 
-    // Esconde o loading quando carregar (simulação rápida)
+
     setTimeout(() => {
       document.getElementById('loading').style.opacity = '0';
     }, 1000);
@@ -59,8 +58,8 @@
 </script>
 
 <style>
-  /* Ajuste fino para o visualizador preencher tudo */
+
   .pnlm-container {
-    background-color: #F5F2E9; /* Mesma cor do fundo do site */
+    background-color: #F5F2E9;
   }
 </style>
