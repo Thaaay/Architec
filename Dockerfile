@@ -4,6 +4,13 @@ FROM ruby:3.2.2-slim AS base
 
 RUN apt-get update -qq && apt-get install -y build-essential libvips nodejs npm python3
 
+# Instalar Node.js e pnpm
+ARG NODE_VERSION=20.10.0
+ARG PNPM_VERSION=9.1.0
+RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
+    && bash n $NODE_VERSION \
+    && npm install -g pnpm@$PNPM_VERSION
+
 WORKDIR /rails
 
 
