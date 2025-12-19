@@ -22,11 +22,19 @@ ENV RAILS_ENV="production" \
 
 FROM base AS build
 
-
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
+
+COPY package.json pnpm-lock.yaml* ./
+
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 COPY . .
 
