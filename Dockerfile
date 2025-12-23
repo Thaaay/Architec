@@ -55,12 +55,13 @@ COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
 
+RUN groupadd --system --gid 1000 rails && \
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
+
 RUN chown -R rails:rails db log storage tmp
+
 USER 1000:1000
 
-# Entrypoint
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# Expor porta
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
