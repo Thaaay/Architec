@@ -6,8 +6,7 @@ A professional architecture portfolio and project management platform built with
 
 ## 🚀 Tech Stack
 
-* **Framework:** Ruby on Rails 8.0.x
-* **Ruby Version:** 3.2.x
+* **Ruby Version:** 8.0.4
 * **Database:** PostgreSQL (Production) | SQLite (Development)
 * **Styling:** Tailwind CSS v4
 * **JavaScript:** esbuild & Stimulus
