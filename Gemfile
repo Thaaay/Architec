@@ -71,3 +71,5 @@ gem "tailwindcss-rails", "~> 4.4"
 gem "pg"
 
 gem "cloudinary"
+
+gem "importmap-rails"
