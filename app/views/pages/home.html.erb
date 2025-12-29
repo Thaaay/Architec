@@ -10,29 +10,38 @@
     </div>
   </nav>
 
-  <header class="relative pt-32 pb-20 px-4">
-    <div class="max-w-6xl mx-auto relative group">
-      <div class="swiper mySwiper rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide relative h-[500px]">
-             <img src="SUA_IMAGEM_AQUI" class="w-full h-full object-cover opacity-80" alt="Architecture 1">
-          </div>
-          </div>
-        <div class="swiper-button-next text-[#c5a367]"></div>
-        <div class="swiper-button-prev text-[#c5a367]"></div>
-        <div class="swiper-pagination"></div>
+<header class="relative pt-32 pb-20 px-4 blueprint-bg">
+  <div class="max-w-6xl mx-auto relative group">
+    
+    <div class="swiper mySwiper rounded-3xl overflow-hidden shadow-2xl border border-white/10 relative">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide relative h-[500px]">
+           <img src="https://images.unsplash.com/photo-1600585154340-be6199f7e009" class="w-full h-full object-cover" alt="Modern Villa">
+           <div class="absolute inset-0 bg-black/20"></div> </div>
+        
+        <div class="swiper-slide relative h-[500px]">
+           <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d" class="w-full h-full object-cover" alt="Interior Design">
+           <div class="absolute inset-0 bg-black/20"></div>
+        </div>
       </div>
-    </div>
-  </header>
 
-  <div class="max-w-4xl mx-auto -mt-10 relative z-10">
-    <div class="bg-[#14322d] p-8 rounded-xl flex justify-between items-center shadow-2xl border border-white/5">
-      <h2 class="text-xl font-light tracking-widest uppercase">Build your vision into reality</h2>
-      <button class="bg-[#4ade80] text-[#14322d] px-8 py-3 rounded-lg font-bold hover:scale-105 transition duration-300">
-        START YOUR PROJECT TODAY
-      </button>
+      <div class="swiper-button-next !text-[#c5a367] after:text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="swiper-button-prev !text-[#c5a367] after:text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="swiper-pagination !bottom-8"></div>
     </div>
+
   </div>
+</header>
+
+
+  <div class="max-w-4xl mx-auto -mt-12 relative z-20">
+  <div class="bg-[#0f2420] px-10 py-6 rounded-2xl flex justify-between items-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10">
+    <h2 class="text-lg font-light tracking-[0.2em] text-gray-200">BUILD YOUR VISION INTO REALITY</h2>
+    <button class="bg-[#52f094] text-[#0f2420] px-6 py-3 rounded-lg font-bold text-sm hover:brightness-110 transition shadow-[0_0_20px_rgba(82,240,148,0.3)]">
+      START YOUR PROJECT TODAY
+    </button>
+  </div>
+</div>
 
   <section class="max-w-7xl mx-auto py-20 px-6 grid grid-cols-1 md:grid-cols-4 gap-6">
     <% @projects.each do |project| %>
@@ -48,6 +57,17 @@
     <% end %>
   </section>
 </div>
+
+<style>
+  .blueprint-bg {
+    background-color: #1a1a1a;
+    background-image: 
+      linear-gradient(rgba(197, 163, 103, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(197, 163, 103, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center;
+  }
+</style>
 
 <script>
   var swiper = new Swiper(".mySwiper", {
