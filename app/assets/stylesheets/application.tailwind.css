@@ -5,3 +5,11 @@
 @tailwind utilities;
 
 /* Seus estilos customizados podem vir aqui depois */
+@layer components {
+  .bg-[#1a1a1a] {
+    background-image: 
+      linear-gradient(to right, rgba(197, 163, 103, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(197, 163, 103, 0.05) 1px, transparent 1px);
+    background-size: 100px 100px;
+  }
+}
