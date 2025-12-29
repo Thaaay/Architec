@@ -41,7 +41,9 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+
+  config.cache_store = :memory_store
+
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   #config.active_job.queue_adapter = :solid_queue
@@ -83,4 +85,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.action_controller.default_url_options = { host: "architec-xu6c.onrender.com" }
+
+
 end
+
