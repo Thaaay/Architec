@@ -9,7 +9,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Full error reports are disabled.
-  config.consider_all_requests_local = false
+  config.consider_all_requests_local = true
 
   # Configuração do Cloudinary
   config.active_storage.service = :cloudinary
