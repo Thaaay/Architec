@@ -68,4 +68,6 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem "tailwindcss-rails", "~> 4.4"
 
-gem "pg", "~> 1.6"
+gem "pg"
+
+gem "cloudinary"
