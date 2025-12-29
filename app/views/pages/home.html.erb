@@ -1,79 +1,87 @@
-<div class="min-h-screen bg-[#1a1a1a] text-white font-sans selection:bg-[#c5a367]">
+<div class="min-h-screen bg-[#1a1a1a] text-white font-sans blueprint-bg flex flex-col">
   
-  <nav class="flex justify-between items-center px-12 py-6 bg-black/20 backdrop-blur-sm fixed w-full z-50">
-    <div class="text-2xl font-bold tracking-widest text-[#c5a367]">ARCHWAY <span class="block text-[10px] text-gray-400 tracking-[0.3em]">DESIGN</span></div>
-    <div class="space-x-8 text-sm uppercase tracking-widest text-gray-300">
-      <a href="#" class="hover:text-[#c5a367] transition">Projects</a>
-      <a href="#" class="hover:text-[#c5a367] transition">Studio</a>
-      <a href="#" class="hover:text-[#c5a367] transition">Contact</a>
-      <a href="/admin" class="bg-[#c5a367] text-black px-6 py-2 rounded-sm font-bold hover:bg-[#d4b57e] transition">Sign Up</a>
+  <nav class="flex justify-between items-center px-8 md:px-16 py-8 fixed top-0 w-full z-[100] bg-gradient-to-b from-black/90 to-transparent backdrop-blur-[2px]">
+    <div class="flex flex-col">
+      <span class="text-2xl font-light tracking-[0.3em] text-white uppercase">Archway</span>
+      <span class="text-[9px] tracking-[0.5em] text-[#c5a367] font-bold uppercase">Design</span>
+    </div>
+    
+    <div class="hidden md:flex items-center space-x-10 text-[11px] uppercase tracking-[0.2em] font-medium text-gray-300">
+      <a href="#projects" class="hover:text-[#c5a367] transition-colors">Projects</a>
+      <a href="#studio" class="hover:text-[#c5a367] transition-colors">Studio</a>
+      <a href="#contact" class="hover:text-[#c5a367] transition-colors">Contact</a>
+      <a href="/admin" class="border border-[#c5a367]/50 px-6 py-2 rounded-full hover:bg-[#c5a367] hover:text-black transition-all duration-300">Admin</a>
     </div>
   </nav>
 
-<header class="relative pt-32 pb-20 px-4 blueprint-bg">
-  <div class="max-w-6xl mx-auto relative group">
-    
-    <div class="swiper mySwiper rounded-3xl overflow-hidden shadow-2xl border border-white/10 relative">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide relative h-[500px]">
-           <img src="https://images.unsplash.com/photo-1600585154340-be6199f7e009" class="w-full h-full object-cover" alt="Modern Villa">
-           <div class="absolute inset-0 bg-black/20"></div> </div>
-        
-        <div class="swiper-slide relative h-[500px]">
-           <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d" class="w-full h-full object-cover" alt="Interior Design">
-           <div class="absolute inset-0 bg-black/20"></div>
+  <header class="relative pt-40 pb-20 px-4">
+    <div class="max-w-6xl mx-auto relative group">
+      <div class="swiper mySwiper rounded-3xl overflow-hidden shadow-2xl border border-white/10 h-[500px]">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide relative">
+             <img src="https://images.unsplash.com/photo-1600585154340-be6199f7e009" class="w-full h-full object-cover" alt="Modern Villa">
+             <div class="absolute inset-0 bg-black/30"></div> 
+          </div>
+          <div class="swiper-slide relative">
+             <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d" class="w-full h-full object-cover" alt="Interior Design">
+             <div class="absolute inset-0 bg-black/30"></div>
+          </div>
         </div>
+        <div class="swiper-button-next !text-[#c5a367] after:!text-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="swiper-button-prev !text-[#c5a367] after:!text-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="swiper-pagination !bottom-8"></div>
       </div>
-
-      <div class="swiper-button-next !text-[#c5a367] after:text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="swiper-button-prev !text-[#c5a367] after:text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="swiper-pagination !bottom-8"></div>
     </div>
+  </header>
 
+  <div class="max-w-4xl w-full mx-auto -mt-16 relative z-50 px-4">
+    <div class="bg-[#0f2420] px-10 py-8 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/10">
+      <h2 class="text-lg font-light tracking-[0.2em] text-gray-200">BUILD YOUR VISION INTO REALITY</h2>
+      <button class="bg-[#52f094] text-[#0f2420] px-8 py-4 rounded-xl font-bold text-xs hover:brightness-110 transition shadow-[0_0_30px_rgba(82,240,148,0.2)] whitespace-nowrap uppercase tracking-widest">
+        Start Your Project Today
+      </button>
+    </div>
   </div>
-</header>
 
-
-  <div class="max-w-4xl mx-auto -mt-12 relative z-20">
-  <div class="bg-[#0f2420] px-10 py-6 rounded-2xl flex justify-between items-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10">
-    <h2 class="text-lg font-light tracking-[0.2em] text-gray-200">BUILD YOUR VISION INTO REALITY</h2>
-    <button class="bg-[#52f094] text-[#0f2420] px-6 py-3 rounded-lg font-bold text-sm hover:brightness-110 transition shadow-[0_0_20px_rgba(82,240,148,0.3)]">
-      START YOUR PROJECT TODAY
-    </button>
-  </div>
-</div>
-
-  <section class="max-w-7xl mx-auto py-20 px-6 grid grid-cols-1 md:grid-cols-4 gap-6">
+  <section id="projects" class="max-w-7xl mx-auto py-32 px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
     <% @projects.each do |project| %>
-      <div class="bg-[#2a2a2a] rounded-2xl overflow-hidden group hover:-translate-y-2 transition duration-500 shadow-lg border border-white/5">
-        <div class="h-64 overflow-hidden">
-          <%= image_tag project.image, class: "w-full h-full object-cover group-hover:scale-110 transition duration-500" if project.image.attached? %>
+      <div class="bg-[#222222] rounded-3xl overflow-hidden group hover:-translate-y-2 transition duration-500 shadow-2xl border border-white/5">
+        <div class="h-72 overflow-hidden relative">
+          <%= image_tag project.image, class: "w-full h-full object-cover group-hover:scale-110 transition duration-700" if project.image.attached? %>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
         </div>
-        <div class="p-6">
-          <h3 class="text-[#c5a367] text-xs font-bold uppercase tracking-widest mb-2"><%= project.title %></h3>
-          <p class="text-gray-400 text-sm line-clamp-2"><%= project.description %></p>
+        <div class="p-8">
+          <h3 class="text-[#c5a367] text-[10px] font-bold uppercase tracking-[0.2em] mb-3"><%= project.title %></h3>
+          <p class="text-gray-400 text-sm font-light leading-relaxed line-clamp-2"><%= project.description %></p>
         </div>
       </div>
     <% end %>
   </section>
+
 </div>
 
 <style>
   .blueprint-bg {
-    background-color: #1a1a1a;
     background-image: 
-      linear-gradient(rgba(197, 163, 103, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(197, 163, 103, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    background-position: center;
+      linear-gradient(rgba(197, 163, 103, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(197, 163, 103, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-attachment: fixed;
   }
+  
+  .swiper-pagination-bullet { background: white !important; opacity: 0.5; }
+  .swiper-pagination-bullet-active { background: #c5a367 !important; opacity: 1; }
 </style>
 
 <script>
-  var swiper = new Swiper(".mySwiper", {
-    loop: true,
-    autoplay: { delay: 5000 },
-    pagination: { el: ".swiper-pagination", clickable: true },
-    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiper = new Swiper(".mySwiper", {
+      loop: true,
+      effect: "fade", /* Efeito de transição suave */
+      fadeEffect: { crossFade: true },
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    });
   });
 </script>
