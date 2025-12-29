@@ -86,9 +86,6 @@ Rails.application.configure do
 
   config.action_controller.default_url_options = { host: "architec-xu6c.onrender.com" }
 
-# Isso força a migração ao iniciar o servidor
-  config.after_initialize do
-    ActiveRecord::Tasks::DatabaseTasks.migrate
-  end
+
 end
 
