@@ -53,21 +53,20 @@
 
 <script>
   function changeImage(element) {
-    // Pega a imagem de dentro do botão clicado
+    
     const thumbnail = element.querySelector('img');
     const mainImage = document.getElementById('main-image');
     
     if (thumbnail && mainImage) {
-      // Aplica um efeito de fade rápido
+      
       mainImage.style.opacity = '0.8';
       
       setTimeout(() => {
-        // Troca a fonte da imagem principal pela da miniatura
+        
         mainImage.src = thumbnail.src;
         mainImage.style.opacity = '1';
       }, 200);
-      
-      // Remove borda ativa de todos e adiciona no atual
+      tual
       document.querySelectorAll('button div').forEach(div => {
         div.classList.remove('border-nordik-accent', 'opacity-100');
         div.classList.add('border-transparent', 'opacity-70');
