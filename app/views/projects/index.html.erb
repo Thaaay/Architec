@@ -22,7 +22,7 @@
           A collection of bespoke architectural solutions, where form meets function in perfect harmony.
         </p>
       </div>
-      
+
       <% if controller_name == 'projects' %>
         <%= link_to 'View Admin Dashboard', admin_dashboard_path, class: "text-[10px] uppercase tracking-[0.2em] text-[#c5a367] border-b border-[#c5a367]/30 pb-1 hover:text-white hover:border-white transition-all" %>
       <% end %>
@@ -37,9 +37,9 @@
             <% else %>
               <div class="w-full h-full flex items-center justify-center text-gray-700 italic">No image attached</div>
             <% end %>
-            
+
             <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80 transition-opacity group-hover:opacity-90"></div>
-            
+
             <div class="absolute bottom-0 left-0 p-8 w-full transform transition-transform duration-500">
               <span class="text-[#c5a367] text-[10px] uppercase tracking-[0.3em] font-bold block mb-2">Project</span>
               <h2 class="text-2xl text-white font-light tracking-wide uppercase group-hover:text-[#c5a367] transition-colors">

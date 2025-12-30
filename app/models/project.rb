@@ -1,8 +1,6 @@
 class Project < ApplicationRecord
-  has_one_attached :image
-  has_many_attached :photos
-  has_one_attached :tour_360
+  has_one_attached :image           # Foto principal (capa)
+  has_one_attached :panorama_image  # Foto 360º
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, :description, presence: true
 end

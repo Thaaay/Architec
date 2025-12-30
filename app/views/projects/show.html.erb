@@ -1,136 +1,102 @@
-<% if @project.tour_360.attached? %>
-  <% content_for :head do %>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-  <% end %>
-<% end %>
+<div class="bg-[#0a0a0a] min-h-screen text-white">
 
-
-<div class="bg-nordik-bg min-h-screen flex flex-col">
-
-  <div class="absolute top-6 right-6 z-20">
-    <%= link_to projects_path, class: "group flex items-center justify-center w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full shadow-sm hover:bg-nordik-accent hover:text-white transition-all duration-300" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-      </svg>
+  <div class="absolute top-0 left-0 w-full z-50 p-8 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
+    <%= link_to projects_path, class: "group flex items-center text-gray-400 hover:text-[#c5a367] transition-all" do %>
+      <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c5a367] mr-4 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </div>
+      <span class="text-[10px] uppercase tracking-[0.4em] font-light">Back to Portfolio</span>
     <% end %>
   </div>
 
-  <div class="flex-grow flex flex-col items-center justify-center p-4 md:p-10 max-w-7xl mx-auto w-full">
-    
-    <div class="text-center mb-8 mt-12">
-        <h1 class="text-4xl font-sans tracking-[0.2em] uppercase text-nordik-primary">
-            <%= @project.title %>
+  <div class="relative h-[70vh] w-full overflow-hidden">
+    <% if @project.image.attached? %>
+      <%= image_tag @project.image, class: "w-full h-full object-cover opacity-60 scale-105" %>
+    <% end %>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+
+    <div class="absolute bottom-12 left-0 w-full">
+      <div class="max-w-7xl mx-auto px-8">
+        <span class="text-[#c5a367] text-[12px] uppercase tracking-[0.5em] font-bold block mb-4">Architecture & Design</span>
+        <h1 class="text-6xl md:text-8xl font-extralight tracking-tighter uppercase mb-2">
+          <%= @project.title %>
         </h1>
-        <p class="text-sm text-nordik-secondary mt-2 max-w-2xl mx-auto"><%= @project.description %></p>
-    </div>
-    
-    <% if @project.tour_360.attached? %>
-      
-      <div class="relative w-full aspect-video md:aspect-[16/9] lg:h-[70vh] bg-nordik-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-8 border-4 border-white">
-        
-        <div id="panorama" class="w-full h-full bg-gray-200"></div>
-        
-        <div class="absolute bottom-4 left-4 right-4 p-4 bg-black/60 text-white rounded-lg text-xs tracking-widest flex justify-between items-center">
-             <span>INTERACTIVE 360 TOUR</span>
-             <span class="text-nordik-accent uppercase font-bold">Clique e arraste para explorar</span>
-        </div>
-      </div>
-      
-    <% else %>
-      
-      <div class="relative w-full aspect-video md:aspect-[16/9] lg:h-[70vh] bg-nordik-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-8">
-        <% if @project.image.attached? %>
-          <%= image_tag @project.image, id: "main-image", class: "w-full h-full object-cover transition-all duration-500" %>
-        <% else %>
-          <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400">SEM CAPA</div>
-        <% end %>
-
-        <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent">
-          <h1 class="text-white text-3xl font-sans tracking-[0.2em] uppercase">
-            <%= @project.title %>
-          </h1>
-        </div>
-      </div>
-
-    <% end %>
-
-    <div class="w-full max-w-4xl">
-      <div class="flex space-x-4 overflow-x-auto pb-4 snap-x justify-center scrollbar-hide">
-        
-        <% unless @project.tour_360.attached? %>
-          <% if @project.image.attached? %>
-            <button onclick="changeImage(this)" class="shrink-0 snap-center focus:outline-none group">
-              <div class="w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 border-nordik-accent transition-all duration-300 opacity-100 ring-offset-2 focus:ring-2 ring-nordik-accent">
-                <%= image_tag @project.image, class: "w-full h-full object-cover" %>
-              </div>
-            </button>
-          <% end %>
-        <% end %>
-
-        <% if @project.photos.attached? %>
-          <% @project.photos.each do |photo| %>
-            <button onclick="changeImage(this)" class="shrink-0 snap-center focus:outline-none group">
-              <div class="w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 border-transparent hover:border-nordik-accent transition-all duration-300 opacity-70 hover:opacity-100 ring-offset-2 focus:ring-2 ring-nordik-accent">
-                <%= image_tag photo, class: "w-full h-full object-cover" %>
-              </div>
-            </button>
-          <% end %>
-        <% end %>
+        <div class="h-1 w-24 bg-[#c5a367]"></div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  document.addEventListener("turbo:load", function() {
+  <div class="max-w-7xl mx-auto px-8 py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
 
-    <% if @project.tour_360.attached? %>
-      if (document.getElementById('panorama')) {
-       
-          const tourUrl = "<%= url_for(@project.tour_360) %>";
-          
-          pannellum.viewer('panorama', {
-              "type": "equirectangular",
-              "panorama": tourUrl,
-              "autoLoad": true,
-              "autoRotate": -2,
-              "compass": false,
-              "showControls": true
-          });
-      }
-      
-  
-    <% else %>
+      <div class="lg:col-span-1 space-y-8">
+        <div>
+          <h3 class="text-[#c5a367] text-xs font-bold uppercase tracking-widest mb-4">The Concept</h3>
+          <p class="text-gray-400 font-light leading-relaxed text-lg">
+            <%= @project.description %>
+          </p>
+        </div>
+
+        <div class="pt-8 border-t border-white/10">
+          <div class="grid grid-cols-2 gap-8">
+            <div>
+              <span class="block text-[10px] text-gray-500 uppercase tracking-widest">Location</span>
+              <span class="text-sm font-light uppercase">United Kingdom</span>
+            </div>
+            <div>
+              <span class="block text-[10px] text-gray-500 uppercase tracking-widest">Year</span>
+              <span class="text-sm font-light">2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-6 flex items-center">
+          <span class="inline-block w-2 h-2 bg-red-600 rounded-full animate-pulse mr-3"></span>
+          Experience in 360°
+        </h3>
+
+       <div class="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-[#111]">
+  <% if @project.respond_to?(:panorama_image) && @project.panorama_image.attached? %>
+    <div id="panorama" class="w-full h-full"></div>
     
-      window.changeImage = function(element) {
-        const thumbnail = element.querySelector('img');
-        const mainImage = document.getElementById('main-image');
-        
-        if (thumbnail && mainImage) {
-          mainImage.style.opacity = '0.8';
-          setTimeout(() => {
-            mainImage.src = thumbnail.src;
-            mainImage.style.opacity = '1';
-            
-            document.querySelectorAll('.w-full.max-w-4xl button div').forEach(div => {
-              div.classList.remove('border-nordik-accent', 'opacity-100');
-              div.classList.add('border-transparent', 'opacity-70');
-            });
-            
-            const activeDiv = element.querySelector('div');
-            activeDiv.classList.remove('border-transparent', 'opacity-70');
-            activeDiv.classList.add('border-nordik-accent', 'opacity-100');
-          }, 200);
+    <script>
+      document.addEventListener("turbo:load", function() {
+        if (document.getElementById('panorama')) {
+          pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": "<%= url_for(@project.panorama_image) %>",
+            "autoLoad": true,
+            "autoRotate": -1,
+            "showControls": true
+          });
         }
-      }
-    <% end %>
-  });
-</script>
+      });
+    </script>
+  <% else %>
+    <div class="w-full h-full flex flex-col items-center justify-center text-gray-600 italic">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9c1.657 0 3 4.03 3 9s-1.343 9-3 9m0-18c-1.657 0-3 4.03-3 9s1.343 9 3 9m-9-9a9 9 0 019-9" />
+      </svg>
+      Interactive panorama not yet uploaded for this project.
+    </div>
+  <% end %>
+</div>
+        </div>
+        <p class="mt-4 text-[10px] text-gray-500 uppercase tracking-[0.2em] text-center">
+          Use your mouse or touch to explore the space
+        </p>
+      </div>
 
-<style>
-  /* Estilos para o Pannellum (Se estiver ativo) */
-  .pnlm-container {
-    background-color: #F5F2E9; 
-  }
-</style>
+    </div>
+  </div>
+
+  <div class="bg-[#111] py-20 text-center">
+    <h2 class="text-3xl text-white font-light mb-8">Inspired by this project?</h2>
+    <%= link_to "Get in Touch", contact_path, class: "inline-block px-12 py-4 bg-[#c5a367] text-white text-[10px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-white transition-all" %>
+  </div>
+
+</div>
