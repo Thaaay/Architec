@@ -1,11 +1,10 @@
 class ContactMailer < ApplicationMailer
-  default from: 'archwayt2025@gmail.com'
+  def contact_email(params)
+    @name = params[:name]
+    @email = params[:email]
+    @subject = params[:subject]
+    @message = params[:message]
 
-  def contact_email(contact_params)
-    @params = contact_params
-    mail(
-      to: 'archwayt2025@gmail.com',
-      subject: "NOVO CONTATO: #{@params[:subject]} - #{@params[:name]}"
-    )
+    mail(to: "archwayt2025@gmail.com", subject: "Novo Contato: #{@subject}")
   end
 end

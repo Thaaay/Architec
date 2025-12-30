@@ -1,10 +1,11 @@
 class AdminController < ApplicationController
 
-  http_basic_authenticate_with name: ENV["ADMIN_USERNAME"], password: ENV["ADMIN_PASSWORD"]
+  http_basic_authenticate_with name: ENV.fetch("ADMIN_USERNAME") { "admin" },
+                               password: ENV.fetch("ADMIN_PASSWORD") { "admin" }
 
   layout "admin"
 
   def dashboard
-    @projects = Project.all.order(created_at: :desc)
+    @projects = Project.all
   end
 end

@@ -1,58 +1,61 @@
-<div class="bg-nordik-bg min-h-screen py-16 px-6">
+<div class="bg-[#1a1a1a] min-h-screen py-12 px-6">
+  
+  <div class="max-w-7xl mx-auto mb-10">
+    <%= link_to root_path, class: "group inline-flex items-center text-gray-500 hover:text-[#c5a367] transition-all duration-300" do %>
+      <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c5a367] mr-4 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </div>
+      <span class="text-[10px] uppercase tracking-[0.4em] font-light">Back to Home</span>
+    <% end %>
+  </div>
+
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-20">
-      <span class="block text-xs font-bold text-nordik-accent tracking-[0.3em] uppercase mb-4">Portfolio</span>
-      <h1 class="text-4xl md:text-5xl font-sans font-light tracking-[0.1em] text-nordik-primary uppercase mb-6">
-        Selected Works
-      </h1>
-      <div class="h-0.5 w-16 bg-nordik-accent mx-auto"></div>
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+      <div>
+        <h1 class="text-5xl font-light tracking-tight text-white uppercase">
+          Our <span class="text-[#c5a367]">Portfolio</span>
+        </h1>
+        <div class="h-0.5 w-20 bg-[#c5a367] mt-4"></div>
+        <p class="text-gray-500 mt-6 max-w-md font-light tracking-wide">
+          A collection of bespoke architectural solutions, where form meets function in perfect harmony.
+        </p>
+      </div>
+      
+      <% if controller_name == 'projects' %>
+        <%= link_to 'View Admin Dashboard', admin_dashboard_path, class: "text-[10px] uppercase tracking-[0.2em] text-[#c5a367] border-b border-[#c5a367]/30 pb-1 hover:text-white hover:border-white transition-all" %>
+      <% end %>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
-
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       <% @projects.each do |project| %>
         <%= link_to project_path(project), class: "group block" do %>
-          <div class="bg-transparent">
-
-            <div class="relative h-96 w-full overflow-hidden rounded-[2rem] shadow-sm group-hover:shadow-xl transition-all duration-500 ease-out mb-6">
-
-              <% if project.image.attached? %>
-                <%= image_tag project.image, class: "w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-in-out" %>
-              <% else %>
-                <div class="w-full h-full bg-nordik-white flex items-center justify-center text-nordik-secondary text-xs tracking-widest border border-nordik-accent/10">
-                  NO IMAGE
-                </div>
-              <% end %>
-
-              <div class="absolute inset-0 bg-nordik-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
-
-            <div class="text-center px-4">
-              <h2 class="text-lg font-sans font-bold tracking-[0.2em] text-nordik-primary uppercase mb-2 group-hover:text-nordik-accent transition-colors duration-300">
+          <div class="relative overflow-hidden rounded-2xl aspect-[4/5] bg-[#222]">
+            <% if project.image.attached? %>
+              <%= image_tag project.image, class: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[50%] group-hover:grayscale-0" %>
+            <% else %>
+              <div class="w-full h-full flex items-center justify-center text-gray-700 italic">No image attached</div>
+            <% end %>
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80 transition-opacity group-hover:opacity-90"></div>
+            
+            <div class="absolute bottom-0 left-0 p-8 w-full transform transition-transform duration-500">
+              <span class="text-[#c5a367] text-[10px] uppercase tracking-[0.3em] font-bold block mb-2">Project</span>
+              <h2 class="text-2xl text-white font-light tracking-wide uppercase group-hover:text-[#c5a367] transition-colors">
                 <%= project.title %>
-              </h2>              <p class="text-xs text-nordik-secondary font-light line-clamp-2 leading-relaxed max-w-xs mx-auto">
-                <%= project.description %>
-              </p>
-
-              <div class="mt-4 opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                <span class="text-[10px] font-bold tracking-[0.2em] text-nordik-accent uppercase border-b border-nordik-accent pb-1">
-                  View Case Study
-                </span>
-              </div>
+              </h2>
+              <div class="h-px w-0 group-hover:w-full bg-[#c5a367] transition-all duration-700 mt-4 opacity-50"></div>
             </div>
-
           </div>
         <% end %>
       <% end %>
-
     </div>
 
     <% if @projects.empty? %>
-      <div class="text-center py-20">
-        <p class="text-nordik-secondary text-sm tracking-widest">No projects found yet.</p>
-        <%= link_to "Go to Admin to Create", admin_path, class: "text-nordik-accent underline mt-2 inline-block text-xs uppercase tracking-widest" %>
+      <div class="py-20 text-center border border-dashed border-white/10 rounded-3xl">
+        <p class="text-gray-500 italic tracking-widest">No projects found in the collection.</p>
       </div>
     <% end %>
-
   </div>
 </div>
