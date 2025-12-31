@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   def create
 
-    if params[:username] == "admin" && params[:password] == "suasenha123"
+    if params[:username] == ENV["ADMIN_USERNAME"] && params[:password] == ENV["ADMIN_PASSWORD"]
       session[:admin_id] = true
       redirect_to admin_dashboard_path, notice: "Welcome back, Architect."
     else
