@@ -1,83 +1,32 @@
-<%= form_with(model: project, class: "grid grid-cols-1 md:grid-cols-3 gap-8") do |f| %>
-
-  <div class="md:col-span-2 bg-nordik-white p-8 md:p-10 rounded-2xl shadow-sm border border-nordik-accent/10">
-    <h2 class="text-lg font-bold tracking-widest text-nordik-primary uppercase mb-8 flex items-center">
-      <span class="bg-nordik-accent/20 w-8 h-8 rounded-full flex items-center justify-center text-nordik-accent mr-3">1</span>
-      Project Details
-    </h2>
+<div class="max-w-2xl mx-auto py-12">
+  <%= form_with(model: project, class: "space-y-10") do |form| %>
     
-    <div class="space-y-6">
-      <div>
-        <%= f.label :title, "Project Title", class: "block text-xs font-bold text-nordik-secondary uppercase tracking-widest mb-3" %>
-        <%= f.text_field :title, placeholder: "E.g., Villa Sunrise", class: "w-full border-0 bg-nordik-bg/70 rounded-xl p-4 text-nordik-primary font-medium placeholder-nordik-secondary/50 focus:ring-2 focus:ring-nordik-accent transition shadow-inner" %>
-      </div>
-
-      <div>
-        <%= f.label :description, "About the project", class: "block text-xs font-bold text-nordik-secondary uppercase tracking-widest mb-3" %>
-        <%= f.text_area :description, rows: 6, placeholder: "Describe the architectural concept...", class: "w-full border-0 bg-nordik-bg/70 rounded-xl p-4 text-nordik-primary font-medium placeholder-nordik-secondary/50 focus:ring-2 focus:ring-nordik-accent transition shadow-inner resize-none" %>
-      </div>
+    <div>
+      <%= form.label :title, class: "block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2" %>
+      <%= form.text_field :title, class: "w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-[#c5a367] transition-colors" %>
     </div>
-  </div>
 
-  <div class="md:col-span-1 space-y-6">
-    
-    <div class="bg-nordik-white p-6 rounded-2xl shadow-sm border border-nordik-accent/10">
-       <h2 class="text-sm font-bold tracking-widest text-nordik-primary uppercase mb-4 flex items-center">
-        <span class="bg-nordik-accent/20 w-6 h-6 rounded-full flex items-center justify-center text-nordik-accent mr-2 text-xs">2</span>
-        Cover Image
-      </h2>
-      <div class="relative group h-40">
-        <%= f.file_field :image, class: "absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" %>
-        <div class="h-full border-2 border-dashed border-nordik-accent/30 rounded-xl bg-nordik-bg/30 flex flex-col items-center justify-center text-center hover:bg-nordik-accent/10 transition">
-          <p class="text-[10px] font-bold text-nordik-primary uppercase">Click to change cover</p>
-        </div>
+    <div>
+      <%= form.label :description, class: "block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2" %>
+      <%= form.text_area :description, rows: 4, class: "w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-[#c5a367] transition-colors resize-none" %>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div class="p-6 border border-white/5 bg-[#111]">
+        <%= form.label :image, "Cover Photo", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
+        <%= form.file_field :image, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
+      </div>
+
+      <div class="p-6 border border-white/5 bg-[#111]">
+        <%= form.label :panorama_image, "Panorama 360º", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
+        <%= form.file_field :panorama_image, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
       </div>
     </div>
 
-    <div class="bg-nordik-white p-6 rounded-2xl shadow-sm border border-nordik-accent/10">
-      <h2 class="text-sm font-bold tracking-widest text-nordik-primary uppercase mb-4 flex items-center">
-        <span class="bg-nordik-accent/20 w-6 h-6 rounded-full flex items-center justify-center text-nordik-accent mr-2 text-xs">3</span>
-        Gallery Photos
-      </h2>
-
-      <div class="relative">
-        <%= f.label :photos, "Select multiple photos", class: "block text-[10px] font-bold text-nordik-secondary uppercase tracking-widest mb-2" %>
-        
-        <%= f.file_field :photos, multiple: true, class: "block w-full text-xs text-slate-500
-          file:mr-4 file:py-2 file:px-4
-          file:rounded-full file:border-0
-          file:text-xs file:font-semibold
-          file:bg-nordik-accent file:text-white
-          hover:file:bg-nordik-primary cursor-pointer
-        " %>
-        <p class="text-[10px] text-gray-400 mt-2">Hold Ctrl/Cmd to select many.</p>
-      </div>
+    <div class="pt-10 flex items-center space-x-8">
+      <%= form.submit "Save Project", class: "bg-[#c5a367] text-black px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] rounded-full cursor-pointer hover:bg-white transition-all" %>
+      <%= link_to "Cancel", admin_dashboard_path, class: "text-[10px] uppercase tracking-widest text-gray-600 hover:text-white" %>
     </div>
 
-    <div class="bg-nordik-primary p-6 rounded-2xl shadow-sm border border-nordik-accent/10">
-      <h2 class="text-sm font-bold tracking-widest text-nordik-white uppercase mb-4 flex items-center">
-        <span class="bg-nordik-accent/20 w-6 h-6 rounded-full flex items-center justify-center text-nordik-accent mr-2 text-xs">4</span>
-        360º Tour File
-      </h2>
-      
-      <div class="relative">
-        <%= f.label :tour_360, "Upload .webp or .jpg panoramic file", class: "block text-[10px] font-bold text-nordik-white/80 uppercase tracking-widest mb-2" %>
-        
-        <%= f.file_field :tour_360, class: "block w-full text-xs text-slate-500
-          file:mr-4 file:py-2 file:px-4
-          file:rounded-full file:border-0
-          file:text-xs file:font-semibold
-          file:bg-nordik-accent file:text-white
-          hover:file:bg-nordik-primary cursor-pointer
-        " %>
-        <p class="text-[10px] text-gray-400 mt-2">just one file (.webp or .jpg).</p>
-      </div>
-    </div>
-
-  </div>
-    
-  <div class="md:col-span-3 flex justify-end mt-4">
-    <%= f.submit "SAVE PROJECT", class: "cursor-pointer px-10 py-4 bg-nordik-accent text-black text-sm font-bold tracking-[0.2em] uppercase rounded-full hover:bg-nordik-primary hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300" %>
-  </div>
-
-<% end %>
+  <% end %>
+</div>

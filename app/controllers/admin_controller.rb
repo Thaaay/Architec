@@ -1,11 +1,13 @@
 class AdminController < ApplicationController
-
-  http_basic_authenticate_with name: ENV.fetch("ADMIN_USERNAME") { "admin" },
-                               password: ENV.fetch("ADMIN_PASSWORD") { "admin" }
-
-  layout "admin"
+  before_action :authorize_admin
 
   def dashboard
-    @projects = Project.all
+    @projects = Project.all.order(created_at: :desc)
+  end
+
+  private
+
+  def authorize_admin
+    redirect_to login_path unless session[:admin_id]
   end
 end

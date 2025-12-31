@@ -1,13 +1,12 @@
 class ProjectsController < ApplicationController
-
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authorize_admin, except: [:index, :show]
+  before_action :set_project, only: %i[ show edit update destroy ]
 
   def index
     @projects = Project.all
   end
 
   def show
-    @project = Project.find(params[:id])
   end
 
   def new
@@ -15,48 +14,38 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
+
   end
 
   def create
     @project = Project.new(project_params)
-
     if @project.save
-      redirect_to admin_path, notice: 'Projeto criado com sucesso.'
+      redirect_to admin_dashboard_path, notice: "Project created."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    @project = Project.find(params[:id])
-
     if @project.update(project_params)
-      redirect_to admin_path, notice: 'Projeto atualizado.'
+      redirect_to admin_dashboard_path, notice: "Project updated."
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
-    redirect_to admin_path, notice: 'Projeto apagado.'
+    redirect_to admin_dashboard_path, notice: "Project deleted."
   end
 
   private
 
-
-  def authenticate_admin!
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "admin" && password == "password123"
-    end
+  def set_project
+    @project = Project.find(params[:id])
   end
 
   def project_params
-
-    params.require(:project).permit(:title, :description, :image, photos: [])
-    params.require(:project).permit(:title, :description, :image, :tour_360, photos: [])
+    params.require(:project).permit(:title, :description, :image, :panorama_image)
   end
-
 end

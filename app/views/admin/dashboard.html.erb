@@ -1,52 +1,47 @@
-<div class="flex justify-between items-end mb-10">
-  <div>
-    <h1 class="text-3xl font-light tracking-tight text-white">Meus Projetos</h1>
-    <p class="text-gray-500 text-sm mt-1">Gerencie o portfólio exibido na home page.</p>
-  </div>
-  <%= link_to "+ Novo Projeto", new_project_path, class: "bg-[#c5a367] hover:bg-[#d4b57e] text-black font-bold py-3 px-8 rounded-xl transition duration-300 uppercase text-[10px] tracking-widest shadow-lg shadow-[#c5a367]/10" %>
-</div>
+<div class="bg-[#0a0a0a] min-h-screen py-12 px-8">
+  <div class="max-w-5xl mx-auto">
 
-<div class="bg-[#1a1a1a] rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
-  <table class="w-full text-left border-collapse">
-    <thead>
-      <tr class="bg-white/5">
-        <th class="px-8 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Preview</th>
-        <th class="px-8 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Informações</th>
-        <th class="px-8 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] text-right">Ações</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-white/5">
-      <% if @projects.present? %>
-        <% @projects.each do |project| %>
-          <tr class="hover:bg-white/[0.02] transition-colors group">
-            <td class="px-8 py-6 w-40">
-              <div class="w-24 h-16 bg-[#222] rounded-xl overflow-hidden border border-white/10">
-                <% if project.image.attached? %>
-                  <%= image_tag project.image, class: "w-full h-full object-cover" %>
-                <% else %>
-                  <div class="w-full h-full flex items-center justify-center text-[10px] text-gray-600 italic">No Pic</div>
-                <% end %>
-              </div>
-            </td>
-            <td class="px-8 py-6">
-              <span class="text-white font-medium block text-lg"><%= project.title %></span>
-              <span class="text-gray-500 text-sm font-light line-clamp-1"><%= project.description %></span>
-            </td>
-            <td class="px-8 py-6 text-right">
-              <div class="flex justify-end items-center space-x-4">
-                <%= link_to "Editar", edit_project_path(project), class: "text-gray-400 hover:text-[#c5a367] text-xs uppercase tracking-widest transition" %>
-                <%= button_to "Apagar", project_path(project), method: :delete, class: "text-red-900/50 hover:text-red-500 text-xs uppercase tracking-widest transition cursor-pointer bg-transparent border-0", onclick: "return confirm('Tem certeza?');" %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      <% else %>
-        <tr>
-          <td colspan="3" class="px-8 py-20 text-center">
-            <p class="text-gray-600 italic">Nenhum projeto cadastrado no momento.</p>
-          </td>
-        </tr>
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <h1 class="text-2xl font-light tracking-[0.4em] uppercase text-white">Project <span class="text-[#c5a367]">Control</span></h1>
+        <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-2">Manage your architectural portfolio</p>
+      </div>
+      <%= link_to "+ New Project", new_project_path, class: "text-[10px] font-bold uppercase tracking-widest bg-[#c5a367] text-black px-6 py-3 hover:bg-white transition-all rounded-full" %>
+    </div>
+
+    <div class="space-y-4">
+      <% @projects.each do |project| %>
+        <div class="group flex items-center justify-between p-6 border border-white/5 hover:border-[#c5a367]/30 bg-[#111]/50 transition-all">
+
+          <div class="flex items-center space-x-6">
+            <div class="w-16 h-16 bg-[#222] overflow-hidden rounded-lg border border-white/10">
+              <% if project.image.attached? %>
+                <%= image_tag project.image, class: "w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" %>
+              <% end %>
+            </div>
+            <div>
+              <h2 class="text-sm font-light uppercase tracking-widest text-white"><%= project.title %></h2>
+              <span class="text-[9px] text-gray-600 uppercase tracking-tighter">Created: <%= project.created_at.strftime("%B %d, %Y") %></span>
+            </div>
+          </div>
+
+          <div class="flex space-x-8 opacity-40 group-hover:opacity-100 transition-opacity">
+            <%= link_to "Edit", edit_project_path(project), class: "text-[10px] uppercase tracking-widest text-gray-400 hover:text-[#c5a367]" %>
+            <%= link_to "Delete", project_path(project), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-[10px] uppercase tracking-widest text-red-900 hover:text-red-500" %>
+          </div>
+
+        </div>
       <% end %>
-    </tbody>
-  </table>
+
+      <% if @projects.empty? %>
+        <div class="py-20 text-center border border-dashed border-white/10">
+          <p class="text-gray-600 text-[10px] uppercase tracking-widest">No projects in the collection yet.</p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/5">
+      <%= link_to "Logout", logout_path, data: { turbo_method: :delete }, class: "text-[9px] uppercase tracking-[0.3em] text-gray-700 hover:text-red-500 transition" %>
+    </div>
+  </div>
 </div>
