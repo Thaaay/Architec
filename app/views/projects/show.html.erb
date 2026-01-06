@@ -16,22 +16,37 @@
     <% end %>
   </div>
 
-  <div class="relative h-[70vh] w-full overflow-hidden">
-    <% if @project.image.attached? %>
-      <%= image_tag @project.image, class: "w-full h-full object-cover opacity-60 scale-105" %>
-    <% end %>
-    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+  <div class="relative h-[70vh] w-full overflow-hidden bg-black">
+  <div class="swiper heroSwiper h-full w-full">
+    <div class="swiper-wrapper">
+      <% if @project.images.attached? %>
+        <% @project.images.each do |img| %>
+          <div class="swiper-slide">
+            <%= image_tag img, class: "w-full h-full object-cover opacity-60 transition-transform duration-[3000ms] hover:scale-110" %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="swiper-slide bg-zinc-900 flex items-center justify-center">
+          <span class="text-white/20 uppercase tracking-[0.5em]">No gallery images</span>
+        </div>
+      <% end %>
+    </div>
 
-    <div class="absolute bottom-12 left-0 w-full">
-      <div class="max-w-7xl mx-auto px-8">
-        <span class="text-[#c5a367] text-[12px] uppercase tracking-[0.5em] font-bold block mb-4">Architecture & Design</span>
-        <h1 class="text-6xl md:text-8xl font-extralight tracking-tighter uppercase mb-2">
-          <%= @project.title %>
-        </h1>
-        <div class="h-1 w-24 bg-[#c5a367]"></div>
-      </div>
+    <div class="swiper-button-next !text-white/30 hover:!text-[#c5a367]"></div>
+    <div class="swiper-button-prev !text-white/30 hover:!text-[#c5a367]"></div>
+  </div>
+
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none z-10"></div>
+  <div class="absolute bottom-12 left-0 w-full z-20">
+    <div class="max-w-7xl mx-auto px-8">
+      <span class="text-[#c5a367] text-[12px] uppercase tracking-[0.5em] font-bold block mb-4">Architecture & Design</span>
+      <h1 class="text-6xl md:text-8xl font-extralight tracking-tighter uppercase mb-2">
+        <%= @project.title %>
+      </h1>
+      <div class="h-1 w-24 bg-[#c5a367]"></div>
     </div>
   </div>
+</div>
 
   <div class="max-w-7xl mx-auto px-8 py-20">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
@@ -111,3 +126,22 @@
   </div>
 
 </div>
+
+<script>
+  function initSwiper() {
+    new Swiper(".heroSwiper", {
+      loop: true,
+      effect: "fade", // Efeito de transição suave (luxo)
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  }
+
+  document.addEventListener("turbo:load", initSwiper);
+</script>

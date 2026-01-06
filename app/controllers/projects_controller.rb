@@ -49,3 +49,8 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:title, :description, :image, :panorama_image)
   end
 end
+
+def project_params
+ 
+  params.require(:project).permit(:title, :description, :panorama_image, images: [])
+end

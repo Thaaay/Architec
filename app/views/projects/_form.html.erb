@@ -1,6 +1,6 @@
 <div class="max-w-2xl mx-auto py-12">
   <%= form_with(model: project, class: "space-y-10") do |form| %>
-    
+
     <div>
       <%= form.label :title, class: "block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2" %>
       <%= form.text_field :title, class: "w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-[#c5a367] transition-colors" %>
@@ -13,13 +13,13 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
       <div class="p-6 border border-white/5 bg-[#111]">
-        <%= form.label :image, "Cover Photo", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
-        <%= form.file_field :image, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
+        <%= form.label :images, "Cover Photo", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
+        <%= form.file_field :images, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
       </div>
 
       <div class="p-6 border border-white/5 bg-[#111]">
-        <%= form.label :panorama_image, "Panorama 360º", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
-        <%= form.file_field :panorama_image, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
+        <%= form.label :panorama_images, "Panorama 360º", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
+        <%= form.file_field :panorama_images, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
       </div>
     </div>
 

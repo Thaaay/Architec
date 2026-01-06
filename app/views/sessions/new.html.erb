@@ -1,32 +1,48 @@
-<div class="bg-[#0a0a0a] min-h-screen flex items-center justify-center px-6">
-  <div class="max-w-md w-full">
+<div class="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-6 relative overflow-hidden">
+  <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#c5a367]/5 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#c5a367]/5 rounded-full blur-[120px]"></div>
+
+  <div class="max-w-md w-full z-10">
     <div class="text-center mb-10">
-      <h1 class="text-2xl tracking-[0.5em] font-light uppercase text-white">
-        Arch<span class="text-[#c5a367]">way</span>
+      <h2 class="text-[#c5a367] text-[10px] uppercase tracking-[0.5em] font-bold mb-4">Secure Access</h2>
+      <h1 class="text-4xl font-extralight text-white uppercase tracking-[0.2em]">
+        Archway <span class="text-[#c5a367]">Portal</span>
       </h1>
-      <p class="text-[10px] uppercase tracking-widest text-gray-500 mt-4 italic">Private Access Portal</p>
+      <div class="h-px w-16 bg-[#c5a367] mx-auto mt-6"></div>
     </div>
 
-    <%= form_with url: login_path, local: true, class: "space-y-6" do |f| %>
-      <div>
-        <%= f.label :username, "Identity", class: "block text-[10px] uppercase tracking-widest text-gray-500 mb-2" %>
-        <%= f.text_field :username, class: "w-full bg-transparent border border-white/10 rounded-none py-3 px-4 text-white focus:outline-none focus:border-[#c5a367] transition-colors" %>
-      </div>
+    <div class="bg-[#111]/80 backdrop-blur-xl border border-white/5 p-10 rounded-2xl shadow-2xl">
+      <%= form_with url: login_path, local: true, class: "space-y-6" do |f| %>
+        
+        <div>
+          <%= f.label :username, "Identity", class: "block text-[10px] uppercase tracking-widest text-gray-500 mb-2 ml-1" %>
+          <%= f.text_field :username, 
+              class: "w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-700 focus:outline-none focus:border-[#c5a367] transition-all duration-300",
+              placeholder: "Username" %>
+        </div>
 
-      <div>
-        <%= f.label :password, "Key Code", class: "block text-[10px] uppercase tracking-widest text-gray-500 mb-2" %>
-        <%= f.password_field :password, class: "w-full bg-transparent border border-white/10 rounded-none py-3 px-4 text-white focus:outline-none focus:border-[#c5a367] transition-colors" %>
-      </div>
+        <div>
+          <%= f.label :password, "Key Code", class: "block text-[10px] uppercase tracking-widest text-gray-500 mb-2 ml-1" %>
+          <%= f.password_field :password, 
+              class: "w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-700 focus:outline-none focus:border-[#c5a367] transition-all duration-300",
+              placeholder: "••••••••" %>
+        </div>
 
-      <div class="pt-4">
-        <%= f.submit "Authorize", class: "w-full py-4 bg-[#c5a367] text-black text-[10px] font-bold uppercase tracking-[0.3em] cursor-pointer hover:bg-white transition-all duration-500" %>
-      </div>
-    <% end %>
+        <% if flash[:alert] %>
+          <div class="text-red-500 text-[10px] uppercase tracking-widest text-center animate-pulse">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
 
-    <% if flash[:alert] %>
-      <p class="text-red-500 text-[10px] uppercase text-center mt-6 tracking-widest animate-pulse"><%= flash[:alert] %></p>
-    <% end %>
-    
-    <%= link_to "← Back to Public Site", root_path, class: "block text-center mt-12 text-[9px] text-gray-700 uppercase tracking-widest hover:text-gray-400 transition" %>
+        <%= f.submit "Enter Sanctuary", 
+            class: "w-full bg-[#c5a367] hover:bg-white text-black font-bold text-[10px] uppercase tracking-[0.3em] py-4 rounded-lg transition-all duration-500 cursor-pointer" %>
+      <% end %>
+    </div>
+
+    <div class="mt-8 text-center">
+      <%= link_to root_path, class: "text-[9px] uppercase tracking-[0.4em] text-gray-600 hover:text-[#c5a367] transition-colors" do %>
+        ← Return to Main Site
+      <% end %>
+    </div>
   </div>
 </div>

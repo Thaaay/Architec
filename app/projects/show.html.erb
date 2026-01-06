@@ -9,14 +9,21 @@
       panoDiv.innerHTML = ""; 
       
       try {
-        pannellum.viewer('panorama', {
-          "type": "equirectangular",
-          "panorama": "<%= j url_for(@project.panorama_image) %>",
-          "autoLoad": true,
-          "autoRotate": -1,
-          "showControls": true,
-          "backgroundColor": [0, 0, 0]
-        });
+      pannellum.viewer('panorama', {
+  "type": "equirectangular",
+  "panorama": "<%= url_for(@project.panorama_image) %>",
+  "autoLoad": true,
+  "hotSpots": [
+    <% @project.hotspots.each do |hs| %>
+      {
+        "pitch": <%= hs.pitch %>,
+        "yaw": <%= hs.yaw %>,
+        "type": "info",
+        "text": "<%= j hs.title %>: <%= j hs.description %>"
+      },
+    <% end %>
+  ]
+});
         console.log("Pannellum inicializado com sucesso.");
       } catch (e) {
         console.error("Erro ao carregar o panorama:", e);
@@ -33,3 +40,34 @@
   // Execução imediata como última garantia
   setTimeout(initPano, 500); 
 </script>
+
+<style>
+
+/* Customizando o ícone do Hotspot para o padrão Archway */
+.pnlm-hotspot.pnlm-info {
+    background-color: rgba(197, 163, 103, 0.8) !important; /* Dourado Archway */
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(197, 163, 103, 0.5);
+    transition: all 0.3s ease;
+}
+
+.pnlm-hotspot.pnlm-info:hover {
+    background-color: #ffffff !important;
+    transform: scale(1.2);
+}
+
+/* Tooltip (o balão que abre) */
+.pnlm-tooltip span {
+    background: rgba(17, 17, 17, 0.95) !important;
+    color: #fff !important;
+    border: 1px solid rgba(197, 163, 103, 0.3) !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 15px !important;
+    border-radius: 8px !important;
+}
+</style>
