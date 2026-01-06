@@ -1,6 +1,7 @@
 class AdminController < ApplicationController
-  # 1. Certifique-se que o nome do método aqui é IGUAL ao do private
-  before_action :check_auth 
+
+  before_action :authenticate_admin!
+
 
   def dashboard
     @projects = Project.all
