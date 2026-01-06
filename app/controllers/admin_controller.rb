@@ -1,13 +1,12 @@
 class AdminController < ApplicationController
-  before_action :authorize_admin
-
-  def dashboard
-    @projects = Project.all.order(created_at: :desc)
-  end
+  before_action :authenticate_admin!
 
   private
 
-  def authorize_admin
-    redirect_to login_path unless session[:admin_id]
+  def authenticate_admin!
+   
+    unless session[:admin_id]
+      redirect_to login_path, alert: "Access Denied. Identity required."
+    end
   end
 end
