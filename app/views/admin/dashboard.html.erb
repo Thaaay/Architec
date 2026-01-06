@@ -15,8 +15,8 @@
 
           <div class="flex items-center space-x-6">
             <div class="w-16 h-16 bg-[#222] overflow-hidden rounded-lg border border-white/10">
-              <% if project.image.attached? %>
-                <%= image_tag project.image, class: "w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" %>
+              <% if project.images.attached? %>
+                <%= image_tag project.images, class: "w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" %>
               <% end %>
             </div>
             <div>
