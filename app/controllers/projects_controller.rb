@@ -56,3 +56,4 @@ def project_params
   params.require(:project).permit(:title, :description, :panorama_image, images: [])
 end
 
+end
