@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, outline: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin!, except: [:index, :show]
  
 
   def index
@@ -39,9 +40,7 @@ class ProjectsController < ApplicationController
     redirect_to admin_dashboard_path, notice: "Project deleted."
   end
 
-  private
-
-  private
+  private 
 
     def set_project
       @project = Project.find(params[:id])
