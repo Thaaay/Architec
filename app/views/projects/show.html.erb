@@ -90,7 +90,7 @@
                   panoDiv.innerHTML = "";
                   pannellum.viewer('panorama', {
                     "type": "equirectangular",
-                    "panorama": "<%= url_for(@project.panorama_image) %>",
+                    "panorama": "<%= @project.panorama_image.attached? ? @project.panorama_image.url : '' %>",
                     "autoLoad": true,
                     "autoRotate": -1,
                     "showControls": true,
