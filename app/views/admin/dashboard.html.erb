@@ -16,7 +16,7 @@
           <div class="flex items-center space-x-6">
             <div class="w-16 h-16 bg-[#222] overflow-hidden rounded-lg border border-white/10">
               <% if project.images.attached? %>
-                <%= image_tag project.images, class: "w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" %>
+                <%= image_tag project.images.first, class: "w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" %>
               <% end %>
             </div>
             <div>
@@ -27,7 +27,8 @@
 
           <div class="flex space-x-8 opacity-40 group-hover:opacity-100 transition-opacity">
             <%= link_to "Edit", edit_project_path(project), class: "text-[10px] uppercase tracking-widest text-gray-400 hover:text-[#c5a367]" %>
-            <%= button_to "Delete", project_path(project), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },class: "text-red-500" %>
+            <%= button_to "Delete", project_path(project), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },
+            class: "text-red-500" %>
           </div>
 
         </div>
