@@ -48,9 +48,6 @@ class ProjectsController < ApplicationController
       redirect_to admin_dashboard_path, alert: "Project not found."
     end
 
-  def set_project
-    @project = Project.find(params[:id])
-  end
 
   def project_params
     params.require(:project).permit(:title, :description, :panorama_image, images: [])
