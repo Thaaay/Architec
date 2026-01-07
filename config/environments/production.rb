@@ -14,6 +14,7 @@ Rails.application.configure do
   # Configuração do Cloudinary
   config.active_storage.service = :cloudinary
 
+
   # Host do seu site (MUITO IMPORTANTE)
   config.action_controller.default_url_options = { host: "architec-xu6c.onrender.com" }
 

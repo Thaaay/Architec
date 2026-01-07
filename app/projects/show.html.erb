@@ -2,15 +2,15 @@
   #panorama {
     width: 100%;
     height: 600px;
-    background: #000;
+    background: #1a1a1a;
     border-radius: 24px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     overflow: hidden;
   }
 
-  /* Personalização dos Hotspots (Pontos de Interesse) */
+  /* Personalização dos Hotspots (Pontos Dourados) */
   .pnlm-hotspot.pnlm-info {
-    background-color: rgba(197, 163, 103, 0.8) !important; /* Dourado Archway */
+    background-color: rgba(197, 163, 103, 0.8) !important; 
     border: 2px solid white !important;
     border-radius: 50% !important;
     cursor: pointer;
@@ -23,7 +23,7 @@
     transform: scale(1.2);
   }
 
-  /* Estilo do balão de texto (Tooltip) */
+  /* Balão de texto (Tooltip) */
   .pnlm-tooltip span {
     background: rgba(17, 17, 17, 0.95) !important;
     color: #fff !important;
@@ -48,13 +48,19 @@
       <%= link_to "← Voltar", root_path, class: "text-[#c5a367] hover:text-white transition-colors pb-2" %>
     </div>
 
-    <div id="panorama"></div>
+    <div id="panorama">
+      <% unless @project.panorama_image.attached? %>
+        <div class="flex items-center justify-center h-full text-gray-500">
+          <p>Nenhuma imagem 360 anexada.</p>
+        </div>
+      <% end %>
+    </div>
 
     <% if @project.images.attached? %>
       <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
         <% @project.images.each do |image| %>
-          <div class="aspect-video rounded-xl overflow-hidden border border-white/10">
-            <%= image_tag image, class: "w-full h-full object-cover" %>
+          <div class="aspect-video rounded-xl overflow-hidden border border-white/10 group">
+            <%= image_tag image, class: "w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" %>
           </div>
         <% end %>
       </div>
@@ -67,36 +73,38 @@
   function initPano() {
     const panoDiv = document.getElementById('panorama');
     
-    // Verifica se a div existe e se a imagem 360 foi anexada
+    // Verifica se a div existe e se a biblioteca Pannellum foi carregada
     if (panoDiv && typeof pannellum !== 'undefined') {
-      panoDiv.innerHTML = ""; // Limpa para evitar duplicados
+      
+      <% if @project.panorama_image.attached? %>
+        // Limpa o conteúdo interno para evitar bugs de reinicialização do Turbo
+        panoDiv.innerHTML = ""; 
 
-      try {
-        pannellum.viewer('panorama', {
-          "type": "equirectangular",
-          <% if @project.panorama_image.attached? %>
+        try {
+          pannellum.viewer('panorama', {
+            "type": "equirectangular",
             "panorama": "<%= polymorphic_url(@project.panorama_image) %>",
-          <% end %>
-          "autoLoad": true,
-          "autoRotate": -2,
-          "hotSpots": [
-            <% @project.hotspots.each do |hs| %>
-              {
-                "pitch": <%= hs.pitch %>,
-                "yaw": <%= hs.yaw %>,
-                "type": "info",
-                "text": "<%= j hs.title %>: <%= j hs.description %>"
-              },
-            <% end %>
-          ]
-        });
-      } catch (e) {
-        console.error("Erro ao carregar o 360:", e);
-      }
+            "autoLoad": true,
+            "autoRotate": -1,
+            "hotSpots": [
+              <% @project.hotspots.each do |hs| %>
+                {
+                  "pitch": <%= hs.pitch %>,
+                  "yaw": <%= hs.yaw %>,
+                  "type": "info",
+                  "text": "<%= j hs.title %>: <%= j hs.description %>"
+                },
+              <% end %>
+            ]
+          });
+        } catch (e) {
+          console.error("Erro ao carregar Pannellum:", e);
+        }
+      <% end %>
     }
   }
 
-  // Garante que funciona com o Turbo do Rails 7
+  // Compatibilidade com Turbo Rails 7
   document.addEventListener("turbo:load", initPano);
   document.addEventListener("DOMContentLoaded", initPano);
 </script>
