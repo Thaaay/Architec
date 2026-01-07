@@ -51,13 +51,8 @@ class ProjectsController < ApplicationController
   def set_project
     @project = Project.find(params[:id])
   end
-
-  def project_params
-    params.require(:project).permit(:title, :description, :image, :panorama_image)
-  end
-end
-
+# app/controllers/projects_controller.rb
 def project_params
- 
   params.require(:project).permit(:title, :description, :panorama_image, images: [])
 end
+
