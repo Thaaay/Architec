@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_admin!, except: [:index, :show]
+  before_action :set_project, outline: [:show, :edit, :update, :destroy]
  
 
   def index
@@ -40,6 +40,14 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  private
+
+    def set_project
+      @project = Project.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to admin_dashboard_path, alert: "Project not found."
+    end
 
   def set_project
     @project = Project.find(params[:id])
