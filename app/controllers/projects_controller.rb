@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
     redirect_to admin_dashboard_path, notice: "Project deleted."
   end
 
-  private 
+  private
 
     def set_project
       @project = Project.find(params[:id])
@@ -51,9 +51,9 @@ class ProjectsController < ApplicationController
   def set_project
     @project = Project.find(params[:id])
   end
-# app/controllers/projects_controller.rb
-def project_params
-  params.require(:project).permit(:title, :description, :panorama_image, images: [])
-end
+
+  def project_params
+    params.require(:project).permit(:title, :description, :panorama_image, images: [])
+  end
 
 end
