@@ -1,5 +1,7 @@
+# syntax = docker/dockerfile:1
 
 FROM ruby:3.2.2-slim AS base
+
 
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
@@ -19,14 +21,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 WORKDIR /rails
 
 
-
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-
+# --- Estágio de Build ---
 FROM base AS build
+
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
@@ -34,22 +36,14 @@ RUN bundle install && \
 
 
 COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install --no-frozen-lockfile
 
-RUN pnpm install --frozen-lockfile
 
 COPY . .
-
-
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-COPY . .
-
-
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
 FROM base
-
 
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
@@ -58,10 +52,15 @@ COPY --from=build /rails /rails
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
 
-RUN chown -R rails:rails db log storage tmp
+
+RUN mkdir -p db log storage tmp && \
+    chown -R rails:rails db log storage tmp
 
 USER 1000:1000
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+
+
+EXPOSE 8080
+
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
