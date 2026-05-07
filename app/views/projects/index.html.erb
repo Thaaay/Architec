@@ -1,0 +1,60 @@
+<div class="bg-[#1a1a1a] min-h-screen py-12 px-6">
+  
+  <div class="max-w-7xl mx-auto mb-10">
+    <%= link_to root_path, class: "group inline-flex items-center text-gray-500 hover:text-[#c5a367] transition-all duration-300" do %>
+      <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c5a367] mr-4 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </div>
+      <span class="text-[10px] uppercase tracking-[0.4em] font-light">Back to Home</span>
+    <% end %>
+  </div>
+
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+      <div>
+        <h1 class="text-5xl font-light tracking-tight text-white uppercase">
+          Our <span class="text-[#c5a367]">Portfolio</span>
+        </h1>
+        <div class="h-0.5 w-20 bg-[#c5a367] mt-4"></div>
+        <p class="text-gray-500 mt-6 max-w-md font-light tracking-wide">
+          A collection of bespoke architectural solutions, where form meets function in perfect harmony.
+        </p>
+      </div>
+
+      <% if controller_name == 'projects' %>
+        <%= link_to 'View Admin Dashboard', admin_dashboard_path, class: "text-[10px] uppercase tracking-[0.2em] text-[#c5a367] border-b border-[#c5a367]/30 pb-1 hover:text-white hover:border-white transition-all" %>
+      <% end %>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <% @projects.each do |project| %>
+        <%= link_to project_path(project), class: "group block" do %>
+          <div class="relative overflow-hidden rounded-2xl aspect-[4/5] bg-[#222]">
+            <% if project.images.attached? %>
+              <%= image_tag project.images.first, class: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[50%] group-hover:grayscale-0" %>
+              <div class="w-full h-full flex items-center justify-center text-gray-700 italic">No image attached</div>
+            <% end %>
+
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80 transition-opacity group-hover:opacity-90"></div>
+
+            <div class="absolute bottom-0 left-0 p-8 w-full transform transition-transform duration-500">
+              <span class="text-[#c5a367] text-[10px] uppercase tracking-[0.3em] font-bold block mb-2">Project</span>
+              <h2 class="text-2xl text-white font-light tracking-wide uppercase group-hover:text-[#c5a367] transition-colors">
+                <%= project.title %>
+              </h2>
+              <div class="h-px w-0 group-hover:w-full bg-[#c5a367] transition-all duration-700 mt-4 opacity-50"></div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if @projects.empty? %>
+      <div class="py-20 text-center border border-dashed border-white/10 rounded-3xl">
+        <p class="text-gray-500 italic tracking-widest">No projects found in the collection.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

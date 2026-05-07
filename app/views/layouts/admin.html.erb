@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Archway Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" rescue stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body class="bg-[#121212] text-gray-200 font-sans antialiased">
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-[#1a1a1a] border-r border-white/5 p-6 flex flex-col">
+        <div class="mb-10">
+          <span class="text-xl font-light tracking-[0.3em] text-white">ARCHWAY</span>
+          <span class="block text-[8px] tracking-[0.5em] text-[#c5a367] font-bold">ADMIN</span>
+        </div>
+
+        <nav class="space-y-2 flex-1">
+          <%= link_to "Dashboard", admin_dashboard_path, class: "block px-4 py-2 rounded-lg bg-[#c5a367]/10 text-[#c5a367] font-medium" %>
+          <%= link_to "Site Principal", root_path, class: "block px-4 py-2 rounded-lg text-gray-400 hover:bg-white/5 transition" %>
+        </nav>
+
+        <div class="pt-6 border-t border-white/5 text-[10px] text-gray-600 tracking-widest uppercase">
+          Archway Design © 2025
+        </div>
+      </aside>
+
+      <main class="flex-1 p-10">
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

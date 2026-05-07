@@ -1,0 +1,147 @@
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+<% end %>
+
+<div class="bg-[#0a0a0a] min-h-screen text-white">
+
+  <div class="absolute top-0 left-0 w-full z-50 p-8 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
+    <%= link_to projects_path, class: "group flex items-center text-gray-400 hover:text-[#c5a367] transition-all" do %>
+      <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#c5a367] mr-4 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </div>
+      <span class="text-[10px] uppercase tracking-[0.4em] font-light">Back to Portfolio</span>
+    <% end %>
+  </div>
+
+  <div class="relative h-[70vh] w-full overflow-hidden bg-black">
+  <div class="swiper heroSwiper h-full w-full">
+    <div class="swiper-wrapper">
+      <% if @project.images.attached? %>
+        <% @project.images.each do |img| %>
+          <div class="swiper-slide">
+            <%= image_tag img, class: "w-full h-full object-cover opacity-60 transition-transform duration-[3000ms] hover:scale-110" %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="swiper-slide bg-zinc-900 flex items-center justify-center">
+          <span class="text-white/20 uppercase tracking-[0.5em]">No gallery images</span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="swiper-button-next !text-white/30 hover:!text-[#c5a367]"></div>
+    <div class="swiper-button-prev !text-white/30 hover:!text-[#c5a367]"></div>
+  </div>
+
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none z-10"></div>
+  <div class="absolute bottom-12 left-0 w-full z-20">
+    <div class="max-w-7xl mx-auto px-8">
+      <span class="text-[#c5a367] text-[12px] uppercase tracking-[0.5em] font-bold block mb-4">Architecture & Design</span>
+      <h1 class="text-6xl md:text-8xl font-extralight tracking-tighter uppercase mb-2">
+        <%= @project.title %>
+      </h1>
+      <div class="h-1 w-24 bg-[#c5a367]"></div>
+    </div>
+  </div>
+</div>
+
+  <div class="max-w-7xl mx-auto px-8 py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+
+      <div class="lg:col-span-1 space-y-8">
+        <div>
+          <h3 class="text-[#c5a367] text-xs font-bold uppercase tracking-widest mb-4">The Concept</h3>
+          <p class="text-gray-400 font-light leading-relaxed text-lg text-justify">
+            <%= @project.description %>
+          </p>
+        </div>
+
+        <div class="pt-8 border-t border-white/10">
+          <div class="grid grid-cols-2 gap-8">
+            <div>
+              <span class="block text-[10px] text-gray-500 uppercase tracking-widest">Location</span>
+              <span class="text-sm font-light uppercase">United Kingdom</span>
+            </div>
+            <div>
+              <span class="block text-[10px] text-gray-500 uppercase tracking-widest">Year</span>
+              <span class="text-sm font-light">2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-6 flex items-center">
+          <span class="inline-block w-2 h-2 bg-red-600 rounded-full animate-pulse mr-3"></span>
+          Experience in 360°
+        </h3>
+
+        <div class="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-[#111]">
+          <% if @project.panorama_image.attached? %>
+            <div id="panorama" class="w-full h-full"></div>
+
+            <script>
+              function initPano() {
+                const panoDiv = document.getElementById('panorama');
+                if (panoDiv) {
+                  panoDiv.innerHTML = "";
+                  pannellum.viewer('panorama', {
+                    "type": "equirectangular",
+                    "panorama": "<%= @project.panorama_image.attached? ? @project.panorama_image.url : '' %>",
+                    "autoLoad": true,
+                    "autoRotate": -1,
+                    "showControls": true,
+                    "backgroundColor": [0, 0, 0]
+                  });
+                }
+              }
+
+
+              document.addEventListener("turbo:load", initPano);
+              if (document.readyState !== 'loading') initPano();
+            </script>
+          <% else %>
+            <div class="w-full h-full flex flex-col items-center justify-center text-gray-600 italic">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9c1.657 0 3 4.03 3 9s-1.343 9-3 9m0-18c-1.657 0-3 4.03-3 9s1.343 9 3 9m-9-9a9 9 0 019-9" />
+              </svg>
+              Interactive panorama not yet uploaded.
+            </div>
+          <% end %>
+        </div>
+        <p class="mt-4 text-[10px] text-gray-500 uppercase tracking-[0.2em] text-center">
+          Use your mouse or touch to explore the space
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bg-[#111] py-20 text-center border-t border-white/5">
+    <h2 class="text-3xl text-white font-light mb-8">Inspired by this project?</h2>
+    <%= link_to "Get in Touch", contact_path, class: "inline-block px-12 py-4 bg-[#c5a367] text-white text-[10px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-white transition-all" %>
+  </div>
+
+</div>
+
+<script>
+  function initSwiper() {
+    new Swiper(".heroSwiper", {
+      loop: true,
+      effect: "fade", // Efeito de transição suave (luxo)
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  }
+
+  document.addEventListener("turbo:load", initSwiper);
+</script>

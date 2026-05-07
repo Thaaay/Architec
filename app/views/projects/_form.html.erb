@@ -1,0 +1,33 @@
+<div class="max-w-2xl mx-auto py-12">
+
+  <%= form_with(model: project, class: "space-y-10", html: { multipart: true }) do |form| %>
+
+    <div>
+      <%= form.label :title, class: "block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2" %>
+      <%= form.text_field :title, class: "w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-[#c5a367] transition-colors" %>
+    </div>
+
+    <div>
+      <%= form.label :description, class: "block text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2" %>
+      <%= form.text_area :description, rows: 4, class: "w-full bg-transparent border-b border-white/10 py-3 text-white focus:outline-none focus:border-[#c5a367] transition-colors resize-none" %>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div class="p-6 border border-white/5 bg-[#111]">
+        <%= form.label :images, "Cover Photos / Gallery", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
+        <%= form.file_field :images, multiple: true, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
+      </div>
+
+      <div class="p-6 border border-white/5 bg-[#111]">
+        <%= form.label :panorama_image, "Panorama 360º", class: "block text-[10px] uppercase tracking-[0.3em] text-[#c5a367] mb-4" %>
+        <%= form.file_field :panorama_image, class: "text-xs text-gray-500 file:bg-[#222] file:text-white file:border-0 file:px-4 file:py-2 file:rounded-full cursor-pointer" %>
+      </div>
+    </div>
+
+    <div class="pt-10 flex items-center space-x-8">
+      <%= form.submit "Save Project", class: "bg-[#c5a367] text-black px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] rounded-full cursor-pointer hover:bg-white transition-all" %>
+      <%= link_to "Cancel", admin_dashboard_path, class: "text-[10px] uppercase tracking-widest text-gray-600 hover:text-white" %>
+    </div>
+
+  <% end %>
+</div>

@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Seus estilos customizados podem vir aqui depois */
+@layer components {
+  .bg-[#1a1a1a] {
+    background-image: 
+      linear-gradient(to right, rgba(197, 163, 103, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(197, 163, 103, 0.05) 1px, transparent 1px);
+    background-size: 100px 100px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.max-w-md {
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+
