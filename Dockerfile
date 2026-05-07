@@ -26,10 +26,10 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-# --- Estágio de Build ---
+
 FROM base AS build
 
-
+# Instalação das Gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
@@ -40,6 +40,9 @@ RUN pnpm install --no-frozen-lockfile
 
 
 COPY . .
+RUN chmod +x bin/*
+
+
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
@@ -47,7 +50,6 @@ FROM base
 
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
-
 
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
@@ -62,5 +64,6 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 
 EXPOSE 8080
+
 
 CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
