@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM ruby:3.2.2-slim AS base
+FROM ruby:3.3.0-slim AS base
 
 
 RUN apt-get update -qq && \
